@@ -83,6 +83,9 @@
 #define MQTT_CALLBACK_SIGNATURE void (*callback)(char*, uint8_t*, unsigned int)
 #endif
 
+#define MQTT_CALLBACK_CONNECT_SIGNATURE void(*callback_connect)()
+#define MQTT_CALLBACK_DISCONNECT_SIGNATURE void(*callback_disconnect)(int8_t)
+
 #define CHECK_STRING_LENGTH(l,s) if (l+2+strnlen(s, this->bufferSize) > this->bufferSize) {_client->stop();return false;}
 
 class PubSubClient : public Print {
@@ -97,6 +100,8 @@ private:
    unsigned long lastInActivity;
    bool pingOutstanding;
    MQTT_CALLBACK_SIGNATURE;
+   MQTT_CALLBACK_CONNECT_SIGNATURE;
+   MQTT_CALLBACK_DISCONNECT_SIGNATURE;
    uint32_t readPacket(uint8_t*);
    boolean readByte(uint8_t * result);
    boolean readByte(uint8_t * result, uint16_t * index);
@@ -134,6 +139,8 @@ public:
    PubSubClient& setServer(uint8_t * ip, uint16_t port);
    PubSubClient& setServer(const char * domain, uint16_t port);
    PubSubClient& setCallback(MQTT_CALLBACK_SIGNATURE);
+   PubSubClient& setCallback_Connect(MQTT_CALLBACK_CONNECT_SIGNATURE); /* Sets a callback function when MQTT connects */
+   PubSubClient& setCallback_Disconnect(MQTT_CALLBACK_DISCONNECT_SIGNATURE); /* Sets a callback function when MQTT disconnects with the value from client.state() */
    PubSubClient& setClient(Client& client);
    PubSubClient& setStream(Stream& stream);
    PubSubClient& setKeepAlive(uint16_t keepAlive);
