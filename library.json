@@ -6,7 +6,7 @@
         "type": "git",
         "url": "https://github.com/BrentIO/pubsubclient.git"
     },
-    "version": "2024.8.2",
+    "version": "2025.4.1",
     "exclude": "tests",
     "examples": "examples/*/*.ino",
     "frameworks": "arduino",

@@ -758,8 +758,9 @@ PubSubClient& PubSubClient::setServer(IPAddress ip, uint16_t port) {
     return *this;
 }
 
-PubSubClient& PubSubClient::setServer(const char * domain, uint16_t port) {
-    this->domain = domain;
+PubSubClient& PubSubClient::setServer(const char* domain, uint16_t port) {
+    this->domain = new char[strlen(domain)+1];
+    strcpy(this->domain, domain);
     this->port = port;
     return *this;
 }
